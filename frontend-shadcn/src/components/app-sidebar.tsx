@@ -34,28 +34,33 @@ export function AppSidebar() {
 
     const forms = [
         {
+            title: "Add New Car",
+            url: "/add-new-car",
+            icon: ReceiptText,
+        },
+        {
             title: "Contract Form",
-            url: "#",
+            url: "/contract-form",
             icon: ReceiptText,
         },
         {
             title: "Bills Receiving Form",
-            url: "#",
+            url: "/bills-receiving-form",
             icon: ReceiptText,
         },
         {
             title: "Fine Entry Form",
-            url: "#",
+            url: "/fine-entry-form",
             icon: ReceiptText,
         },
         {
             title: "Contract Ending Form",
-            url: "#",
+            url: "/contract-ending-form",
             icon: ReceiptText,
         },
         {
             title: "Salik Entry Form",
-            url: "#",
+            url: "/salik-entry-form",
             icon: ReceiptText,
         },
     ]
