@@ -6,7 +6,8 @@ export default function Page(){
 
     type BillReceived = {
         _id: string;
-        vehicleAgreementNo: string;
+        vehicleAgreementId: string;
+        vehicleAgreementNumber: string;
         amountreceived: number;
         receivedby: string;
         paymentmode: string;
@@ -28,7 +29,7 @@ export default function Page(){
 
     const run = async () => {
         try {
-            await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/cars/${deleteId}`);
+            await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/billsreceiving/${deleteId}`);
             if (cancelled) return;
             // Optimistically remove from UI
             setBillsreceived(prev => prev.filter(c => c._id !== deleteId));
@@ -74,56 +75,28 @@ export default function Page(){
 
                                                 <td className="px-4 border-r-1">
                                                     <div className="py-2">
-                                                        <h1 className="uppercase font-bold"><span className="text-blue-500">AGREEMENT NUMBER: </span>{c.vehicleAgreementNo}</h1>
+                                                        <h1 className="uppercase font-bold"><span className="text-blue-500">AGREEMENT NUMBER: </span>
+                                                            {
+                                                                typeof c.vehicleAgreementId === 'object' && c.vehicleAgreementId !== null
+                                                                        ? (c.vehicleAgreementId as any).vehicleAgreementNumber
+                                                                        : ''
+                                                            }
+                                                        </h1>
                                                         <div className="text-[14px]">
 
                                                             <p><span className="font-bold text-[12px]">AMOUNT RECEIVED: </span> {c.amountreceived}</p>
                                                             <p><span className="font-bold text-[12px]">RECEIVED BY: </span>{c.receivedby}</p>
                                                             <p><span className="font-bold text-[12px]">MODE OF PAYMENT: </span>{c.paymentmode}</p>
 
-                                                            {/* <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-2 items-center justify-between gap-2 mt-2">
-
-                                                                <div className="flex flex-col gap-1 items-center w-full justify-center bg-blue-300 p-4 border-2">
-                                                                    <h2 className="text-[12px] font-bold">Total Fine Amount</h2>
-                                                                    <p className="text-[16px] font-bold text-white">AED {c.totalFineAmount}</p>
-                                                                </div>
-
-                                                                <div className="flex flex-col gap-1 items-center w-full justify-center bg-blue-300 p-4 border-2">
-                                                                    <h2 className="text-[12px] font-bold">Total Salik Amount</h2>
-                                                                    <p className="text-[16px] font-bold text-white">{c.totalSalikAmount}</p>
-                                                                </div>
-
-                                                                <div className="flex flex-col gap-1 items-center w-full justify-center bg-blue-300 p-4 border-2">
-                                                                    <h2 className="text-[12px] font-bold">Total Amount Received</h2>
-                                                                    <p className="text-[16px] font-bold text-white">{c.totalAmountReceived}</p>
-                                                                </div>
-
-                                                                <div className="flex flex-col gap-1 items-center w-full justify-center bg-blue-300 p-4 border-2">
-                                                                    <h2 className="text-[12px] font-bold">Total Rental Amount</h2>
-                                                                    <p className="text-[16px] font-bold text-white">{c.totalRentalAmount}</p>
-                                                                </div>
-
-                                                                <div className="flex flex-col gap-1 items-center w-full justify-center bg-blue-300 p-4 border-2">
-                                                                    <h2 className="text-[12px] font-bold">Total Contract Amount</h2>
-                                                                    <p className="text-[16px] font-bold text-white">{c.totalContractAmount}</p>
-                                                                </div>
-
-                                                                <div className="flex flex-col gap-1 items-center w-full justify-center bg-blue-300 p-4 border-2">
-                                                                    <h2 className="text-[12px] font-bold">Total Amount Remaining</h2>
-                                                                    <p className="text-[16px] font-bold text-white">{c.totalAmountRemaining}</p>
-                                                                </div>
-
-                                                            </div> */}
                                                         </div>
                                                     </div>
                                                 </td>
 
                                                 <td className="px-4">
                                                     <div className="flex flex-col gap-2 py-4">
-                                                        <button className="bg-blue-500 rounded-2xl px-4 font-bold text-white">Edit</button>
                                                         <button 
                                                             onClick={() => {
-                                                                if (confirm("Are you sure you want to delete this contract?")) {
+                                                                if (confirm("Are you sure you want to delete this bill?")) {
                                                                     setDeleteId(c._id);
                                                                 }
                                                             }} 

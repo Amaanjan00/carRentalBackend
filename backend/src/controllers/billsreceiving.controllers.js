@@ -9,6 +9,48 @@ export const getAllBillsReceiving = async (req, res) => {
     }
 };
 
+export const getAllBills = async (req, res) => {
+    try {
+        const bills = await BillReceiving.aggregate(
+            [
+                {
+                    $lookup: {
+                        from: "contracts",
+                        localField: "vehicleAgreementNo",
+                        foreignField: "_id",
+                        as: "contract",
+                        pipeline: [
+                        {
+                            $project: {
+                            vehicleAgreementNumber: 1,
+                            _id: 0
+                            }
+                        }
+                        ]
+                    }
+                },
+                {
+                    $addFields: {
+                    vehicleAgreementId: {
+                        $arrayElemAt: ["$contract", 0]
+                    }
+                    }
+                },
+                {
+                    $project: {
+                    __v: 0,
+                    vehicleAgreementNo: 0
+                    }
+                }
+            ]
+        )
+
+        res.status(200).json(bills)
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 export const getBillReceivingById = async (req, res) => {
     try {
         const bill = await BillReceiving.findById(req.params.id);
