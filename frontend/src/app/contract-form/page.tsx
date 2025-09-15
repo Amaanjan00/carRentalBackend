@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from 'zod';
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 // ---- Zod Schema ----
 export const ContractSchema = z.object({
@@ -28,6 +29,24 @@ export const ContractSchema = z.object({
 export type ContractInput = z.infer<typeof ContractSchema>;
 
 export default function Page() {
+
+  type Car = {
+    _id: string;
+    carBrand: string;
+    carModel: string;
+    makeYear: number;
+    carPlateNo: string;
+    // add other fields if needed
+  };
+
+  const [cars, setCars] = useState<Car[]>([])
+
+  useEffect(() => {
+    const cars = axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/cars`)
+    .then((cars) => setCars(cars.data))
+    .catch((err) => console.log("Error in getting cars data", err))
+  })
+
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<ContractInput>({
     resolver: zodResolver(ContractSchema) as any
   });
@@ -97,7 +116,12 @@ export default function Page() {
 
             <div>
               <label>Car (ID)</label>
-              <input {...register("car")} className="bg-gray-100 p-2 text-[12px] rounded-[6px] w-full" placeholder="Car ObjectId" type="text" />
+              <select {...register("car")} className="bg-gray-100 p-2 text-[12px] rounded-[6px] w-full" defaultValue="">
+                <option value="" disabled>Select a car</option>
+                {cars.map((car) => (
+                  <option key={car._id} value={car._id}>{car.carPlateNo}-{car.carBrand}-{car.carModel}-{car.makeYear}</option>
+                ))}
+              </select>
               {errors.car && <div>{errors.car.message}</div>}
             </div>
 

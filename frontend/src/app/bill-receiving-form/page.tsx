@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from 'zod';
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 export const BillReceivingSchema = z.object({
   vehicleAgreementNo: z.string().min(1, "Vehicle Agreement ID is required"),
@@ -15,6 +16,20 @@ export const BillReceivingSchema = z.object({
 export type BillReceivingInput = z.infer<typeof BillReceivingSchema>;
 
 export default function Page() {
+
+  type Contract = {
+    _id: string;
+    vehicleAgreementNumber: string;
+  }
+
+  const [contracts, setContracts] = useState<Contract[]>([])
+
+  useEffect(() => {
+    const contracts = axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/contracts`)
+    .then((contracts) => setContracts(contracts.data))
+    .catch((err) => console.log("Error in getting contracts data", err))
+  })
+
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<BillReceivingInput>({
     resolver: zodResolver(BillReceivingSchema)
   });
@@ -42,13 +57,13 @@ export default function Page() {
           >
 
             <div>
-              <label htmlFor="">Vehicle Agreement (ID)</label>
-              <input
-                {...register("vehicleAgreementNo")}
-                className="bg-gray-100 p-2 text-[12px] rounded-[6px] w-full"
-                placeholder="vehicleAgreementNo (ObjectId)"
-                type="text"
-              />
+              <label>Vehicle Agreement (ID)</label>
+              <select {...register("vehicleAgreementNo")} className="bg-gray-100 p-2 text-[12px] rounded-[6px] w-full" defaultValue="">
+                <option value="" disabled>Select an agreement id</option>
+                {contracts.map((c) => (
+                  <option key={c._id} value={c._id}>{c.vehicleAgreementNumber}</option>
+                ))}
+              </select>
               {errors.vehicleAgreementNo && <div>{errors.vehicleAgreementNo.message}</div>}
             </div>
 
