@@ -470,3 +470,23 @@ export const deleteContract = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+
+// Convert Active to Completed
+export const cancelContract = async (req, res) => {
+  try {
+    const { _id } = req.body;
+    const findContract = await Contract.findOneAndUpdate(
+      { _id },
+      { $set: { contractStatus: 'Completed' } },
+      { new: true, runValidators: true }
+    )
+    if (!findContract) {
+      return res.status(404).json({ message: "Contract not found"})
+    }
+    res.status(200).json({ message: 'Contract updated successfully' })
+  } catch (error) {
+    console.error('Error updating contract:', error);
+    res.status(500).json({ error: 'Cound not end contract from server' });
+  }
+}

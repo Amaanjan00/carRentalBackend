@@ -67,10 +67,15 @@ export default function Page(){
 
         const run = async () => {
             try {
-                await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/contracts/${deleteId}`);
+                const { data } = await axios.patch(
+                    `${process.env.NEXT_PUBLIC_API_URL}/api/contracts/cancel-contract`,
+                    { _id: deleteId } // <-- send the id
+                );
                 if (cancelled) return;
                 // Optimistically remove from UI
-                setContracts(prev => prev.filter(c => c._id !== deleteId));
+                setContracts(prev =>
+                    prev.map(c => c._id === deleteId ? { ...c, contractStatus: 'Completed' } : c)
+                );
             } catch (err) {
                 console.error("Error deleting contract", err);
             } finally {
@@ -230,7 +235,7 @@ export default function Page(){
                                                     <div className="flex flex-col gap-2 py-4">
                                                         <button 
                                                             onClick={() => {
-                                                                if (confirm("Are you sure you want to delete this contract?")) {
+                                                                if (confirm("Are you sure you want to end this contract?")) {
                                                                     setDeleteId(c._id);
                                                                 }
                                                             }} 
