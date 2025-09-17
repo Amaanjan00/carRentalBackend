@@ -35,11 +35,10 @@ export default function Page(){
                     </div>
                 </div>
 
-                <div className="bg-gray-200 w-fit p-4 flex gap-4 rounded-2xl">
-                    <form>
+                <div className="bg-gray-200 w-fit p-4 rounded-2xl">
+                    <form className="flex gap-4">
                         <label className="font-bold">Search</label>
                         <input className="bg-white" type="text" onChange={e => setSearch(e.target.value)} />
-                        <button type="submit"></button>
                     </form>
                 </div>
 
