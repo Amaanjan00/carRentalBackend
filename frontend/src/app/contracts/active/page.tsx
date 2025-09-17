@@ -56,7 +56,7 @@ export default function Page(){
         fetchContracts()
     }, [])
 
-    // Fetch all Completed contracts
+    // Fetch all Inactive contracts
     useEffect(() => {
         const fetchContracts = async () => {
             const contracts = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/contracts/inactive`)
@@ -159,7 +159,7 @@ export default function Page(){
 
                                     <tbody>
 
-                                        {contracts.map((c)=> {
+                                        {activeContracts.map((c)=> {
 
                                             return (
                                             <tr key={c._id} className="border-b-1">

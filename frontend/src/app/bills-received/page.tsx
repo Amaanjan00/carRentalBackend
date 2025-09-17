@@ -50,7 +50,15 @@ export default function Page(){
         <>
             <div>
                 <div className="bg-red">
-                    <div className="bg-blue-500">Total number of Bills Received: {billsreceived.length}</div>
+
+                    <div className="p-4 flex gap-4">
+
+                        <div className="bg-blue-500 w-fit p-4 text-[16px] font-extrabold text-white">
+                            Total number of Bills Received 
+                            <p className="text-4xl px-2 py-1">{billsreceived.length}</p>
+                        </div>
+
+                    </div>
 
                     <div className="mt-5 flex flex-col gap-2">
                         <h1 className="px-5 font-bold text-3xl">Bills Received</h1>
