@@ -31,8 +31,11 @@ export default function Page(){
     const [contracts, setContracts] = useState<Contract[]>([])
     const [activeContracts, setActiveContracts] = useState<Contract[]>([])
     const [inactiveContracts, setInactiveContracts] = useState<Contract[]>([])
-    const [deleteId, setDeleteId] = useState<string | null>(null)
+    const [endContract, setendContract] = useState<string | null>(null)
+    const [deleteContractid, setDeleteContractId] = useState<string | null>(null)
 
+
+    // Fetch all contracts
     useEffect(() => {
         const fetchContracts = async () => {
             const contracts = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/contracts`)
@@ -40,8 +43,9 @@ export default function Page(){
             .catch((err) => console.log("Error in getting contracts data", err))
         }
         fetchContracts()
-    })
+    }, [])
 
+    // Fetch all Active contracts
     useEffect(() => {
         const fetchContracts = async () => {
             const contracts = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/contracts/active`)
@@ -49,8 +53,9 @@ export default function Page(){
             .catch((err) => console.log("Error in getting contracts data", err))
         }
         fetchContracts()
-    })
+    }, [])
 
+    // Fetch all Inactive contracts
     useEffect(() => {
         const fetchContracts = async () => {
             const contracts = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/contracts/inactive`)
@@ -58,10 +63,11 @@ export default function Page(){
             .catch((err) => console.log("Error in getting contracts data", err))
         }
         fetchContracts()
-    })
+    }, [])
 
+    // Patch and change status to "Completed"
     useEffect(() => {
-        if (!deleteId) return; // nothing to do
+        if (!endContract) return; // nothing to do
 
         let cancelled = false;
 
@@ -69,24 +75,46 @@ export default function Page(){
             try {
                 const { data } = await axios.patch(
                     `${process.env.NEXT_PUBLIC_API_URL}/api/contracts/cancel-contract`,
-                    { _id: deleteId } // <-- send the id
+                    { _id: endContract } // <-- send the id
                 );
                 if (cancelled) return;
                 // Optimistically remove from UI
                 setContracts(prev =>
-                    prev.map(c => c._id === deleteId ? { ...c, contractStatus: 'Completed' } : c)
+                    prev.map(c => c._id === endContract ? { ...c, contractStatus: 'Completed' } : c)
                 );
             } catch (err) {
-                console.error("Error deleting contract", err);
+                console.error("Error completing contract", err);
             } finally {
-                if (!cancelled) setDeleteId(null); // reset trigger
+                if (!cancelled) setendContract(null); // reset trigger
             }
         };
 
         run();
 
         return () => { cancelled = true; };
-    }, [deleteId]);
+    }, [endContract]);
+
+    // Delete a contract
+    useEffect(() => {
+        if (!deleteContractid) return;
+
+        let cancelled = false;
+
+        const deletecontract = async () => {
+            try {
+                await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/contracts/${deleteContractid}`)
+                if (cancelled) return
+
+                setContracts(prev => prev.filter(c => c._id !== deleteContractid));
+            } catch (error) {
+                console.log("Error in deleting contract!", error);
+            }
+        }
+
+        deletecontract();
+
+        return () => { cancelled = true; };
+    }, [deleteContractid])
 
 
     return(
@@ -236,10 +264,22 @@ export default function Page(){
                                                         <button 
                                                             onClick={() => {
                                                                 if (confirm("Are you sure you want to end this contract?")) {
-                                                                    setDeleteId(c._id);
+                                                                    setendContract(c._id);
                                                                 }
                                                             }} 
-                                                            className="bg-red-500 rounded-2xl px-4 font-bold text-white">Delete</button>
+                                                            className="bg-red-500 rounded-2xl px-4 font-bold text-white">
+                                                            End Contract
+                                                        </button>
+
+                                                        <button 
+                                                            onClick={() => {
+                                                                if (confirm("Are you sure you want to delete this contract?")) {
+                                                                    setDeleteContractId(c._id);
+                                                                }
+                                                            }} 
+                                                            className="bg-red-500 rounded-2xl px-4 font-bold text-white">
+                                                            Delete Contract
+                                                        </button>
                                                     </div>
                                                 </td>
 
