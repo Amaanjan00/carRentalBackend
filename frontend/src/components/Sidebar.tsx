@@ -26,6 +26,7 @@ export default function Sidebar() {
                 <a onClick={handleClick} href="/contracts"><li className={`${pathname === "/contracts" ? "text-[14px] bg-blue-100 rounded-[7px] mb-1 px-1" : "px-1 rounded-[7px] text-[14px] hover:bg-blue-100 mb-1"}`}>Contracts</li></a>
                 <a onClick={handleClick} href="/customers"><li className={`${pathname === "/customers" ? "text-[14px] bg-blue-100 rounded-[7px] mb-1 px-1" : "px-1 rounded-[7px] text-[14px] hover:bg-blue-100 mb-1"}`}>Customers</li></a>
                 <a onClick={handleClick} href="/bills-received"><li className={`${pathname === "/bills-received" ? "text-[14px] bg-blue-100 rounded-[7px] mb-1 px-1" : "px-1 rounded-[7px] text-[14px] hover:bg-blue-100 mb-1"}`}>Bills Received</li></a>
+                <a onClick={handleClick} href="/expenses"><li className={`${pathname === "/expenses" ? "text-[14px] bg-blue-100 rounded-[7px] mb-1 px-1" : "px-1 rounded-[7px] text-[14px] hover:bg-blue-100 mb-1"}`}>Expenses</li></a>
             </ul>
         </div>
 
