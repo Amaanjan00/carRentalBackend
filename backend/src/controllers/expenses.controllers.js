@@ -1,5 +1,6 @@
 import { Expense } from "../models/expenses.model.js";
 
+// GET all Expenses
 export const getAllExpenses = async (req, res) => {
     try {
         const expenses = await Expense.aggregate(
@@ -36,6 +37,7 @@ export const getAllExpenses = async (req, res) => {
     }
 }
 
+// POST Expense
 export const createExpense = async (req, res) => {
     try {
         const payload = req.body;
@@ -46,6 +48,7 @@ export const createExpense = async (req, res) => {
     }
 }
 
+// DELETE Expense
 export const deleteExpense = async (req, res) => {
     try {
         const { id } = req.params;

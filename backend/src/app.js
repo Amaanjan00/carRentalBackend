@@ -7,6 +7,7 @@ import finesRouter from './routes/fines.routes.js';
 import salikRouter from './routes/salik.routes.js';
 import billsReceivingRouter from './routes/billsreceiving.routes.js';
 import expensesRouter from './routes/expense.routes.js';
+import customerRouter from './routes/customers.routes.js';
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use('/api/contracts', contractsRouter);
 app.use('/api/expenses', expensesRouter);
 app.use('/api/fines', finesRouter);
 app.use('/api/salik', salikRouter);
+app.use('/api/customers', customerRouter);
 app.use('/api/billsreceiving', billsReceivingRouter);
 
 export { app };
