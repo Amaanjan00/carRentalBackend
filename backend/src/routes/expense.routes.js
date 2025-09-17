@@ -1,5 +1,5 @@
 import express from 'express';
-import { createExpense, getAllExpenses } from '../controllers/expenses.controllers.js';
+import { createExpense, deleteExpense, getAllExpenses } from '../controllers/expenses.controllers.js';
 
 const expensesRouter = express.Router();
 
@@ -7,5 +7,6 @@ const expensesRouter = express.Router();
 
 expensesRouter.get('/', getAllExpenses);
 expensesRouter.post('/', createExpense);
+expensesRouter.delete('/:id', deleteExpense);
 
 export default expensesRouter;

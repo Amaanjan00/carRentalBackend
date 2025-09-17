@@ -18,3 +18,16 @@ export const createExpense = async (req, res) => {
         res.status(500).json("Error in creating contract")
     }
 }
+
+export const deleteExpense = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedExpense = await Expense.findByIdAndDelete(id)
+        if (!deletedExpense) {
+            return res.status(404).json({ error: 'Contract not found' });
+        }
+        res.status(200).json("Deleted Expense", deletedExpense)
+    } catch (error) {
+        res.status(500).json("Error in deleting expense")
+    }
+}

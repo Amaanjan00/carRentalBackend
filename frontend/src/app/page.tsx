@@ -14,7 +14,7 @@ export default function Home() {
             <p>Contracts</p>
           </div></a>
 
-          <a href="/customers"><div className="w-fit p-4 bg-red-400 text-4xl font-extrabold text-white">
+          <a href="/customers"><div className="w-fit p-4 bg-purple-400 text-4xl font-extrabold text-white">
             <p>Customers</p>
           </div></a>
 
@@ -24,6 +24,10 @@ export default function Home() {
 
           <a href="/cars"><div className="w-fit p-4 bg-amber-400 text-4xl font-extrabold text-white">
             <p>Cars</p>
+          </div></a>
+
+          <a href="/expenses"><div className="w-fit p-4 bg-red-400 text-4xl font-extrabold text-white">
+            <p>Expense</p>
           </div></a>
 
         </div>
