@@ -28,7 +28,7 @@ export default function Page() {
     const contracts = axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/contracts`)
     .then((contracts) => setContracts(contracts.data))
     .catch((err) => console.log("Error in getting contracts data", err))
-  })
+  }, [])
 
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<BillReceivingInput>({
     resolver: zodResolver(BillReceivingSchema)

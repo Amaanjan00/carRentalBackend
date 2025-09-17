@@ -25,7 +25,7 @@ export default function Page(){
         const bills = axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/billsreceiving`)
         .then((bills) => setBillsreceived(bills.data))
         .catch((err) => console.log("Error in getting bills data", err))
-    })
+    }, [])
 
     return(
         <>

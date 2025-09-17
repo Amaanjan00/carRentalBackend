@@ -44,13 +44,13 @@ export default function Page() {
     const cars = axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/cars`)
     .then((cars) => setCars(cars.data))
     .catch((err) => console.log("Error in getting cars data", err))
-  })
+  }, [])
 
   useEffect(() => {
     const contracts = axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/contracts`)
     .then((contracts) => setContracts(contracts.data))
     .catch((err) => console.log("Error in getting contracts data", err))
-  })
+  }, [])
 
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FineInput>({
     resolver: zodResolver(FineSchema) as any

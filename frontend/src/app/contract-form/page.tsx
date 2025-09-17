@@ -45,7 +45,7 @@ export default function Page() {
     const cars = axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/cars`)
     .then((cars) => setCars(cars.data))
     .catch((err) => console.log("Error in getting cars data", err))
-  })
+  }, [])
 
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<ContractInput>({
     resolver: zodResolver(ContractSchema) as any
