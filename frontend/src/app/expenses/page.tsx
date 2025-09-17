@@ -56,14 +56,14 @@ export default function Page(){
                     <div className="p-4 flex gap-4">
 
                         <div className="bg-blue-500 w-fit p-4 text-[16px] font-extrabold text-white">
-                            Total number of Bills Received 
+                            Total number of expenses 
                             <p className="text-4xl px-2 py-1">{expenses.length}</p>
                         </div>
 
                     </div>
 
                     <div className="mt-5 flex flex-col gap-2">
-                        <h1 className="px-5 font-bold text-3xl">Bills Received</h1>
+                        <h1 className="px-5 font-bold text-3xl">List of Expenses</h1>
 
                         <div className="p-5">
 
@@ -88,11 +88,11 @@ export default function Page(){
                                                         
                                                         <div className="text-[14px]">
 
-                                                            <p><span className="font-bold text-[12px]">AMOUNT RECEIVED: </span> {c.nameOfReceivingParty}</p>
-                                                            <p><span className="font-bold text-[12px]">AMOUNT RECEIVED: </span> {c.expenseDetails}</p>
-                                                            <p><span className="font-bold text-[12px]">RECEIVED BY: </span>{c.expenseAmount}</p>
-                                                            <p><span className="font-bold text-[12px]">MODE OF PAYMENT: </span>{c.dateOfExpense}</p>
-                                                            <p><span className="font-bold text-[12px]">MODE OF PAYMENT: </span>{c.modeOfPayment}</p>
+                                                            <p><span className="font-bold text-[12px]">Payment to: </span> {c.nameOfReceivingParty}</p>
+                                                            <p><span className="font-bold text-[12px]">Date fo expense: </span>{c.dateOfExpense}</p>
+                                                            <p><span className="font-bold text-[12px]">Expense Details: </span> {c.expenseDetails}</p>
+                                                            <p><span className="font-bold text-[12px]">Mode of Payment: </span>{c.modeOfPayment}</p>
+                                                            <p><span className="font-bold text-[12px]">Expense Amount: </span>{c.expenseAmount}</p>
 
                                                         </div>
 

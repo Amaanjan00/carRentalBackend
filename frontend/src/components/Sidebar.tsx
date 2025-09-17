@@ -39,6 +39,7 @@ export default function Sidebar() {
                 <a onClick={handleClick} href="/bill-receiving-form"><li className={`${pathname === "/bill-receiving-form" ? "text-[14px] bg-blue-100 rounded-[7px] mb-1 px-1" : "px-1 rounded-[7px] text-[14px] hover:bg-blue-100 mb-1"}`}>Bill Receiving Form</li></a>
                 <a onClick={handleClick} href="/fine-entry-form"><li className={`${pathname === "/fine-entry-form" ? "text-[14px] bg-blue-100 rounded-[7px] mb-1 px-1" : "px-1 rounded-[7px] text-[14px] hover:bg-blue-100 mb-1"}`}>Fine Entry Form</li></a>
                 <a onClick={handleClick} href="/salik-entry-form"><li className={`${pathname === "/salik-entry-form" ? "text-[14px] bg-blue-100 rounded-[7px] mb-1 px-1" : "px-1 rounded-[7px] text-[14px] hover:bg-blue-100 mb-1"}`}>Salik Entry Form</li></a>
+                <a onClick={handleClick} href="/expense-entry-form"><li className={`${pathname === "/expense-entry-form" ? "text-[14px] bg-blue-100 rounded-[7px] mb-1 px-1" : "px-1 rounded-[7px] text-[14px] hover:bg-blue-100 mb-1"}`}>Expense Entry Form</li></a>
             </ul>
         </div>
         
