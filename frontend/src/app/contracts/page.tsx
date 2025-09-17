@@ -26,6 +26,7 @@ export default function Page(){
         totalRentalAmount: number;
         totalContractAmount: number;
         totalAmountRemaining: number;
+        updatedAt: string;
     }
 
     const [contracts, setContracts] = useState<Contract[]>([])
@@ -149,7 +150,7 @@ export default function Page(){
 
                                 <table>
 
-                                    <thead className="w-full border-b-2">
+                                    <thead className="border-b-2">
                                         <tr>
                                             <th className="w-full p-2 text-left border-r-1">Details</th>
                                             <th className="p-2">Actions</th>
@@ -190,12 +191,17 @@ export default function Page(){
 
                                                                     {/* CONTRACT DAYS */}
                                                                     <p className="flex items-center gap-2">
-                                                                        <span className="font-bold text-[12px]">CONTRACT DAYS: </span><span>{c.contractDays}</span>
+                                                                        <span className="font-bold text-[12px]">CONTRACT DURATION: </span><span>{c.contractDays} Days</span>
                                                                     </p>
 
                                                                     {/* CONTRACT STATUS */}
                                                                     <p className="flex items-center gap-2">
                                                                         <span className="font-bold text-[12px]">CONTRACT STATUS: </span><span>{c.contractStatus}</span>
+                                                                    </p>
+
+                                                                    {/* UPDATED AT */}
+                                                                    <p className="flex items-center gap-2">
+                                                                        <span className="font-bold text-[12px]">Updated at: </span><span>{c.updatedAt}</span>
                                                                     </p>
                                                                 </div>
 
@@ -259,17 +265,31 @@ export default function Page(){
                                                     </div>
                                                 </td>
 
-                                                <td className="px-4">
+                                                <td className="px-4 text-[12px]">
                                                     <div className="flex flex-col gap-2 py-4">
-                                                        <button 
+
+                                                        {c.contractStatus === "Completed" ? (
+                                                            <button
+                                                            disabled
                                                             onClick={() => {
                                                                 if (confirm("Are you sure you want to end this contract?")) {
                                                                     setendContract(c._id);
                                                                 }
                                                             }} 
-                                                            className="bg-red-500 rounded-2xl px-4 font-bold text-white">
+                                                            className="bg-gray-400 rounded-2xl px-4 font-bold text-white">
                                                             End Contract
                                                         </button>
+                                                        ) : (
+                                                            <button
+                                                            onClick={() => {
+                                                                if (confirm("Are you sure you want to end this contract?")) {
+                                                                    setendContract(c._id);
+                                                                }
+                                                            }} 
+                                                            className="bg-blue-400 rounded-2xl px-4 font-bold text-white">
+                                                            End Contract
+                                                        </button>
+                                                        )}
 
                                                         <button 
                                                             onClick={() => {
