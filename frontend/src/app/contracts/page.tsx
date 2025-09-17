@@ -27,6 +27,18 @@ export default function Page(){
         totalContractAmount: number;
         totalAmountRemaining: number;
         updatedAt: string;
+        car: Car;
+    }
+
+    type Car = {
+        _id: string,
+        carPlateNo: string,
+        carModel: string,
+        carColor: string,
+        carBrand: string,
+        chassisNo: string,
+        makeYear: number,
+        expiryDate: string,
     }
 
     const [contracts, setContracts] = useState<Contract[]>([])
@@ -177,6 +189,11 @@ export default function Page(){
                                                                     {/* CUSTOMER NAME */}
                                                                     <p className="flex items-center gap-2">
                                                                         <span className="font-bold text-[12px]">CUSTOMER NAME: </span><span>{c.customerName}</span>
+                                                                    </p>
+
+                                                                    {/* CAR PLATE NO */}
+                                                                    <p className="flex items-center gap-2">
+                                                                        <span className="font-bold text-[12px]">CAR PLATE NO: </span><span>{c.car.carPlateNo}</span>
                                                                     </p>
 
                                                                     {/* AMOUNT/DAY */}
