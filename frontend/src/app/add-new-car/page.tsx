@@ -32,6 +32,7 @@ export default function Page() {
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/cars`, data);
       console.log("Car added successfully:", data);
+      window.alert("Car Added Successfully")
       reset(); // clear the form after success
     } catch (error) {
       console.error("Error adding car:", error);

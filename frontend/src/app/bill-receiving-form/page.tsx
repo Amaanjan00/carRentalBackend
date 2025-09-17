@@ -38,6 +38,7 @@ export default function Page() {
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/billsreceiving`, data);
       console.log("Bill receiving added successfully:", data);
+      window.alert("Bill Received")
       reset(); // clear the form after success
     } catch (error) {
       console.error("Error adding bill receiving:", error);

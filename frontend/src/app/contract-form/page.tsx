@@ -55,6 +55,7 @@ export default function Page() {
         try {
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/contracts`, data);
             console.log("Contract created successfully:", data);
+            window.alert("Contract created")
             reset(); // clear form
         } catch (error) {
             console.error("Error creating contract:", error);

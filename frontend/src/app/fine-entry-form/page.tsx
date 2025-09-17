@@ -60,6 +60,7 @@ export default function Page() {
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/fines`, data);
       console.log("Fine added successfully:", data);
+      window.alert("Fine added successfully")
       reset(); // clear form after success
     } catch (error) {
       console.error("Error adding fine:", error);

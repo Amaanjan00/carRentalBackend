@@ -59,6 +59,7 @@ export default function Page() {
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/salik`, data);
       console.log("Salik added successfully:", data);
+      window.alert("Salik Added Successfully")
       reset(); // clear form after success
     } catch (error) {
       console.error("Error adding salik:", error);
