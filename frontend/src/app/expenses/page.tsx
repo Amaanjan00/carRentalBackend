@@ -6,14 +6,22 @@ export default function Page(){
 
     type Expenses = {
         _id: string;
-        car: string;
+        car: Car;
         expenseDetails: string;
         expenseAmount: number;
         nameOfReceivingParty: string;
         dateOfExpense: string;
         modeOfPayment: string;
         categoryOfExpense: string;
+        carPlateNo: string;
     }
+
+    type Car = {
+        _id: string;
+        carPlateNo: string;
+        carModel: string;
+        carBrand: string;
+    };
 
     const [expenses, setExpenses] = useState<Expenses[]>([])
     const [deleteId, setDeleteId] = useState<string | null>(null)
@@ -93,6 +101,7 @@ export default function Page(){
                                                             <p><span className="font-bold text-[12px]">Expense Details: </span> {c.expenseDetails}</p>
                                                             <p><span className="font-bold text-[12px]">Mode of Payment: </span>{c.modeOfPayment}</p>
                                                             <p><span className="font-bold text-[12px]">Expense Amount: </span>{c.expenseAmount}</p>
+                                                            <p><span className="font-bold text-[12px]">Car plate No: </span>{c.car.carPlateNo}</p>
 
                                                         </div>
 

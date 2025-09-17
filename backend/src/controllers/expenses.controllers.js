@@ -2,7 +2,34 @@ import { Expense } from "../models/expenses.model.js";
 
 export const getAllExpenses = async (req, res) => {
     try {
-        const expenses = await Expense.find()
+        const expenses = await Expense.aggregate(
+            [
+                {
+                    $lookup: {
+                    from: "cars",
+                    localField: "car",
+                    foreignField: "_id",
+                    as: "car",
+                    pipeline: [
+                        {
+                        $project: {
+                            carPlateNo: 1,
+                            carModel: 1,
+                            carBrand: 1
+                        }
+                        }
+                    ]
+                    }
+                },
+                {
+                    $addFields: {
+                    car: {
+                        $arrayElemAt: ["$car", 0]
+                    }
+                    }
+                }
+            ]
+        )
         res.status(200).json(expenses);
     } catch (error) {
         req.status(500).json("Error in getting expeses");
